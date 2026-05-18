@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K-Etiquette Survival Guide</title>
+    <meta name="description" content="A practical guide to Korean etiquette for international students.">
+    <!-- Google Fonts: Inter, Noto Sans KR, Nanum Myeongjo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- PWA Manifest & Icons -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/svg+xml" href="icon.svg">
+    <link rel="apple-touch-icon" href="icon.svg">
+    <meta name="theme-color" content="#2563eb">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-top">
+                <h1 class="logo">
+                    <svg width="24" height="36" viewBox="0 0 24 36" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 6px;">
+                        <path d="M12 0V4" stroke="var(--primary-color)" stroke-width="2"/>
+                        <rect x="8" y="4" width="8" height="8" rx="2" fill="var(--primary-color)"/>
+                        <circle cx="12" cy="8" r="2" fill="#fff"/>
+                        <rect x="9" y="12" width="6" height="4" rx="1" fill="var(--cat-yellow-text)"/>
+                        <line x1="12" y1="16" x2="12" y2="36" stroke="var(--primary-color)" stroke-width="2"/>
+                        <line x1="8" y1="16" x2="8" y2="32" stroke="var(--cat-blue-text)" stroke-width="1.5"/>
+                        <line x1="16" y1="16" x2="16" y2="32" stroke="var(--cat-blue-text)" stroke-width="1.5"/>
+                    </svg>
+                    K-Etiquette
+                </h1>
+                <div class="settings-dropdown" style="position: relative;">
+                    <button class="icon-btn" aria-label="Settings" id="settings-btn">
+                        <i data-lucide="settings"></i>
+                    </button>
+                    <div class="lang-menu hidden" id="lang-menu">
+                        <div class="settings-section-title" data-i18n="settingsTitle">설정</div>
+                        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+                        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+                        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+                        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+                        <button class="lang-btn" data-lang="vi">🇻🇳 Tiếng Việt</button>
+                        <hr class="settings-divider">
+                        <div class="settings-toggle-row">
+                            <span data-i18n="dailyNotif">오늘의 에티켓 알림</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="notif-toggle">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="search-container">
+                <i data-lucide="search" class="search-icon"></i>
+                <input type="text" id="search-input" data-i18n-placeholder="searchPlaceholder" placeholder="예절 검색 (예: 식사, 버스, 인사)...">
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="main-content" id="main-content">
+            <!-- Home View -->
+            <section id="view-home" class="view active">
+                <div class="welcome-section">
+                    <h2 data-i18n="welcomeTitle">한국에 오신 것을 환영합니다! 🇰🇷</h2>
+                    <p data-i18n="welcomeDesc">유학생을 위한 한국 문화 및 예절 가이드입니다.</p>
+                </div>
+                
+                <h3 class="section-title" data-i18n="categoriesTitle">카테고리 (Categories)</h3>
+                <div class="category-grid" id="category-grid">
+                    <!-- Categories injected by JS -->
+                </div>
+
+                <h3 class="section-title mt-6" data-i18n="quickTipsTitle">핵심 팁 (Quick Tips)</h3>
+                <div class="quick-tips">
+                    <div class="tip-card">
+                        <div class="tip-icon"><i data-lucide="lightbulb"></i></div>
+                        <div class="tip-text" id="quick-tip-text">어떻게 해야 할지 모를 때는, 가볍게 고개를 숙여 인사하는 것이 항상 정답입니다!</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Category Detail View -->
+            <section id="view-category" class="view">
+                <div class="view-header">
+                    <button class="back-btn icon-btn" id="back-from-category">
+                        <i data-lucide="arrow-left"></i>
+                    </button>
+                    <h2 id="category-title">카테고리 이름</h2>
+                </div>
+                <div class="etiquette-list" id="category-etiquette-list">
+                    <!-- Items injected by JS -->
+                </div>
+            </section>
+
+            <!-- Bookmarks View -->
+            <section id="view-bookmarks" class="view">
+                <h2 class="view-title" data-i18n="savedTitle">저장된 예절 (Saved)</h2>
+                <div class="etiquette-list" id="bookmarks-list">
+                    <!-- Items injected by JS -->
+                </div>
+                <div id="empty-bookmarks" class="empty-state hidden">
+                    <i data-lucide="bookmark-minus"></i>
+                    <p data-i18n="emptySaved" data-html="true">저장된 예절이 없습니다.<br>북마크 아이콘을 눌러 저장해보세요!</p>
+                </div>
+            </section>
+
+            <!-- Search Results View -->
+            <section id="view-search" class="view">
+                <h2 class="view-title" data-i18n="searchTitle">검색 결과 (Search Results)</h2>
+                <div class="etiquette-list" id="search-results-list">
+                    <!-- Items injected by JS -->
+                </div>
+                <div id="empty-search" class="empty-state hidden">
+                    <i data-lucide="search-x"></i>
+                    <p data-i18n="emptySearch" data-html="true">검색 결과가 없습니다.<br>다른 키워드로 검색해보세요.</p>
+                </div>
+            </section>
+
+            <!-- Quiz View -->
+            <section id="view-quiz" class="view">
+                <h2 class="view-title" data-i18n="quizTitle">에티켓 퀴즈</h2>
+                <div class="quiz-container" id="quiz-container">
+                    <!-- Quiz content injected by JS -->
+                </div>
+            </section>
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <button class="nav-item active" data-target="view-home">
+                <i data-lucide="home"></i>
+                <span data-i18n="navHome">홈 (Home)</span>
+            </button>
+            <button class="nav-item" data-target="view-bookmarks">
+                <i data-lucide="bookmark"></i>
+                <span data-i18n="navSaved">저장됨 (Saved)</span>
+            </button>
+            <button class="nav-item" data-target="view-quiz">
+                <i data-lucide="help-circle"></i>
+                <span data-i18n="navQuiz">퀴즈 (Quiz)</span>
+            </button>
+        </nav>
+
+        <!-- Detail Modal -->
+        <div class="modal-overlay" id="detail-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modal-title">예절 제목</h3>
+                    <div class="modal-actions">
+                        <button class="icon-btn bookmark-btn" id="modal-bookmark-btn">
+                            <i data-lucide="bookmark"></i>
+                        </button>
+                        <button class="icon-btn" id="close-modal-btn">
+                            <i data-lucide="x"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-image-placeholder" id="modal-image">
+                        <i data-lucide="image"></i>
+                    </div>
+                    <div class="modal-description" id="modal-description">
+                        상세 설명이 여기에 들어갑니다.
+                    </div>
+                    <div class="modal-dos-donts">
+                        <div class="dos">
+                            <h4><i data-lucide="check-circle-2" class="text-green"></i> <span data-i18n="dosTitle">해야 할 일 (Do)</span></h4>
+                            <ul id="modal-dos"></ul>
+                        </div>
+                        <div class="donts">
+                            <h4><i data-lucide="x-circle" class="text-red"></i> <span data-i18n="dontsTitle">피해야 할 일 (Don't)</span></h4>
+                            <ul id="modal-donts"></ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Memo Section -->
+                    <div class="memo-container hidden" id="memo-container">
+                        <textarea id="memo-input" data-i18n-placeholder="memoPlaceholder" placeholder="개인 메모를 남겨보세요..." rows="3"></textarea>
+                        <div class="memo-actions">
+                            <span id="memo-status" class="memo-status hidden" data-i18n="memoSavedMsg">저장됨!</span>
+                            <button id="memo-save-btn" class="memo-save-btn" data-i18n="memoSave">저장</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Chatbot FAB -->
+        <button class="chatbot-fab" id="chatbot-fab" aria-label="Open Chatbot">
+            <i data-lucide="message-square"></i>
+        </button>
+
+        <!-- Chatbot Window -->
+        <div class="chatbot-window" id="chatbot-window">
+            <div class="chat-header">
+                <div class="chat-title">
+                    <i data-lucide="bot"></i>
+                    <span data-i18n="chatTitle">예절 도우미 (Etiquette Bot)</span>
+                </div>
+                <button class="icon-btn" id="close-chat-btn">
+                    <i data-lucide="chevron-down"></i>
+                </button>
+            </div>
+            <div class="chat-messages" id="chat-messages">
+                <!-- Initial message injected by JS -->
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="chat-input" data-i18n-placeholder="chatInput" placeholder="질문을 입력하세요...">
+                <button id="send-chat-btn"><i data-lucide="send"></i></button>
+            </div>
+        </div>
+
+    </div>
+    
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
